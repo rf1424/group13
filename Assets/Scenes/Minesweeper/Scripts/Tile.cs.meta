@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5b81c7cfe9397f34facd00c0d33afe05
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - tile: {instanceID: 0}
+  - unclickedMaterial: {fileID: 2100000, guid: 8448d0a1031710e4db2d21c35ddf6a28, type: 2}
+  - flagMaterial: {fileID: 2100000, guid: de9c191474bdaed4da62e5d82857e13b, type: 2}
+  - mineHitTileMaterial: {fileID: 2100000, guid: 1c44e88fa63a4804b91311290e16e13f,
+      type: 2}
+  - emptyMaterial: {fileID: 2100000, guid: 0f27c6e81a4a2444a9828abbb81cb75a, type: 2}
+  - flagTexture: {fileID: 2800000, guid: 7a1b0161bc4772346a28500da159811c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

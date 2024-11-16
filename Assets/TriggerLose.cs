@@ -12,24 +12,24 @@ public class TriggerLose : MonoBehaviour
     private void OnTriggerEnter(Collider p)
     {
 
-        void Start()
-        {
-            openDoorScript = door0.GetComponent<OpenDoor>();
-        }
+        //void Start()
+        //{
+        //    openDoorScript = door0.GetComponent<OpenDoor>();
+        //}
 
-        // Check if the object entering the trigger is the player
-        if (p.CompareTag("Player"))
-        {
-            openDoorScript = door0.GetComponent<OpenDoor>();
-            //EndGame();
-            //Endtext.SetActive(true);
-            if (GameData.wrongDoorChosen) {
-                openDoorScript.openDoor();
-                Ben.SetActive(true);
-                Debug.Log("You Lost");
-            }
+        //// Check if the object entering the trigger is the player
+        //if (p.CompareTag("Player"))
+        //{
+        //    openDoorScript = door0.GetComponent<OpenDoor>();
+        //    //EndGame();
+        //    //Endtext.SetActive(true);
+        //    if (GameData.wrongDoorChosen) {
+        //        openDoorScript.openDoor();
+        //        Ben.SetActive(true);
+        //        Debug.Log("You Lost");
+        //    }
             
 
-        }
+        //}
     }
 }
