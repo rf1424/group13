@@ -26,10 +26,24 @@ public class Tile : MonoBehaviour
 
     [SerializeField] private Texture flagTexture;
 
+    [SerializeField] private Material oneMaterial;
+    [SerializeField] private Material twoMaterial;
+    [SerializeField] private Material threeMaterial;
+    [SerializeField] private Material fourMaterial;
+    [SerializeField] private Material fiveMaterial;
+    [SerializeField] private Material sixMaterial;
+    [SerializeField] private Material sevenMaterial;
+    [SerializeField] private Material eightMaterial;
+
+    [SerializeField] private Material mineMaterial;
+    [SerializeField] private Material mineWrongMaterial;
+
     private Renderer tileRenderer;
     private MaterialPropertyBlock propertyBlock;
 
+    private Material[] numbers;
 
+    public GameManagerMS gameManagerMS;
 
 
     void Awake()
@@ -38,66 +52,16 @@ public class Tile : MonoBehaviour
         // spriteRenderer = GetComponent<SpriteRenderer>();
         tileRenderer = GetComponent<Renderer>();
         propertyBlock = new MaterialPropertyBlock();
+        numbers = new Material[] {null, oneMaterial, twoMaterial, threeMaterial, fourMaterial, fiveMaterial, sixMaterial, sevenMaterial, eightMaterial};
     }
 
     private void Update()
     {
-        OnMouseDown();
     }
 
-    private void OnMouseDown()
-    {
+    
 
-
-        // If it hasn't already been pressed.
-        if (active)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-
-                Debug.Log("left clicked");
-
-                // If left click reveal the tile contents.
-                ClickedTile();
-            }
-            else if (Input.GetMouseButtonDown(1))
-            {
-
-                Debug.Log("right clicked");
-
-                // If right click toggle flag on/off.
-                flagged = !flagged;
-                if (flagged)
-                {   
-                    Debug.Log("help1");
-                    //SetMaterial(flagMaterial);
-                    tileRenderer.GetPropertyBlock(propertyBlock);
-                    propertyBlock.SetTexture("flagged", flagTexture);
-                    tileRenderer.SetPropertyBlock(propertyBlock);
-                    // tileRenderer.material = new Material(flagMaterial);
-                    // spriteRenderer.sprite = flaggedTile;
-                }
-                else
-                {
-                    // spriteRenderer.sprite = unclickedTile;
-                    Debug.Log("help2");
-                    //SetMaterial(unclickedMaterial);
-                    tileRenderer.material = new Material(unclickedMaterial);
-                }
-            }
-        }
-        //else
-        //{
-        //    // If you're pressing both mouse buttons.
-        //    if (Input.GetMouseButton(0) && Input.GetMouseButton(1))
-        //    {
-        //        // Check for valid expansion.
-        //        gameManager.ExpandIfFlagged(this);
-        //    }
-        //}
-    }
-
-    public void ClickedTile()
+    public void ClickTile()
     {
         // Don't allow left clicks on flags.
         if (active & !flagged)
@@ -107,59 +71,85 @@ public class Tile : MonoBehaviour
             if (isMine)
             {
                 // Game over :(
-                // spriteRenderer.sprite = mineHitTile;
-                // tileRenderer.material = Instantiate(mineHitTileMaterial);
-                SetMaterial(mineHitTileMaterial);
                 tileRenderer.material = new Material(mineHitTileMaterial);
 
                 //gameManager.GameOver();
             }
             else
             {
-                // tileRenderer.material = Instantiate(emptyMaterial);
-                tileRenderer.material = new Material(emptyMaterial);
 
-                // It was a safe click, set the correct sprite.
-                //spriteRenderer.sprite = clickedTiles[mineCount];
-                //if (mineCount == 0)
-                //{
-                //    // Register that the click should expand out to the neighbours.
-                //    gameManager.ClickNeighbours(this);
-                //}
-                //// Whenever we successfully make a change check for game over.
-                //gameManager.CheckGameOver();
+                // it was a safe click, set the correct sprite.
+                if (mineCount == 0)
+                {
+                    tileRenderer.material = new Material(emptyMaterial);
+                    // Register that the click should expand out to the neighbours.
+                    gameManagerMS.ClickNeighbours(this);
+                }
+                else
+                {
+                    // Debug.Log("num mines: " + mineCount);
+                    Material num = numbers[mineCount];
+                    // Debug.Log(num == null);
+                    tileRenderer.material = new Material(numbers[mineCount]);
+                }
+
+                // Whenever we successfully make a change check for game over.
+                gameManagerMS.CheckGameOver();
             }
         }
     }
 
-    //// If this tile should be shown at game over, do so.
-    //public void ShowGameOverState()
-    //{
-    //    if (active)
-    //    {
-    //        active = false;
-    //        if (isMine & !flagged)
-    //        {
-    //            // If mine and not flagged show mine.
-    //            spriteRenderer.sprite = mineTile;
-    //        }
-    //        else if (flagged & !isMine)
-    //        {
-    //            // If flagged incorrectly show crossthrough mine
-    //            spriteRenderer.sprite = mineWrongTile;
-    //        }
-    //    }
-    //}
+    public void FlagTile()
+    {
+        Debug.Log("right clicked");
 
-    //// Helper function to flag remaning mines on game completion.
-    //public void SetFlaggedIfMine()
-    //{
-    //    if (isMine)
-    //    {
-    //        flagged = true;
-    //        spriteRenderer.sprite = flaggedTile;
-    //    }
-    //}
+        // If right click toggle flag on/off.
+        flagged = !flagged;
+        if (flagged)
+        {
+            Debug.Log("flag");
+            //SetMaterial(flagMaterial);
+            tileRenderer.material = new Material(flagMaterial);
+            // spriteRenderer.sprite = flaggedTile;
+        }
+        else
+        {
+            // spriteRenderer.sprite = unclickedTile;
+            Debug.Log("unflag");
+            //SetMaterial(unclickedMaterial);
+            tileRenderer.material = new Material(unclickedMaterial);
+        }
+
+    }
+
+    // If this tile should be shown at game over, do so.
+    public void ShowGameOverState()
+    {
+        if (active)
+        {
+            active = false;
+            if (isMine & !flagged)
+            {
+                // If mine and not flagged show mine.
+                tileRenderer.material = new Material(mineMaterial);
+            }
+            else if (flagged & !isMine)
+            {
+                // If flagged incorrectly show crossthrough mine
+                tileRenderer.material = new Material(mineWrongMaterial);
+            }
+        }
+    }
+
+    // Helper function to flag remaning mines on game completion.
+    public void SetFlaggedIfMine()
+    {
+        if (isMine)
+        {
+            flagged = true;
+            tileRenderer.material = new Material(flagMaterial);
+        }
+    }
 
     private void SetMaterial(Material material)
     {

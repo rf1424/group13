@@ -11,6 +11,17 @@ MonoImporter:
       type: 2}
   - emptyMaterial: {fileID: 2100000, guid: 0f27c6e81a4a2444a9828abbb81cb75a, type: 2}
   - flagTexture: {fileID: 2800000, guid: 7a1b0161bc4772346a28500da159811c, type: 3}
+  - oneMaterial: {fileID: 2100000, guid: 8535d514cabd7164fa7f402e1224a6d6, type: 2}
+  - twoMaterial: {fileID: 2100000, guid: 7372b79c7cccff24e94da5a494c28984, type: 2}
+  - threeMaterial: {fileID: 2100000, guid: 1ed8320f2351da64e935da7a1970dd50, type: 2}
+  - fourMaterial: {fileID: 2100000, guid: fcf7173889e7a1a47ae396224ed72701, type: 2}
+  - fiveMaterial: {fileID: 2100000, guid: d4b35b81d96b47145bd3f184bdd8ce92, type: 2}
+  - sixMaterial: {fileID: 2100000, guid: c92d48973ca4d914fb472a012a04eca7, type: 2}
+  - sevenMaterial: {fileID: 2100000, guid: 6e10670eccd46c04aa27305696f81700, type: 2}
+  - eightMaterial: {fileID: 2100000, guid: ef374a09c8479a04e843781ddc03084b, type: 2}
+  - mineMaterial: {fileID: 2100000, guid: 7512396f9e72b894c86fa53658d12e96, type: 2}
+  - mineWrongMaterial: {fileID: 2100000, guid: 8dd83060a30714849844a565968a9c4b, type: 2}
+  - gameManagerMS: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
